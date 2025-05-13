@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reglamento - PureSkill League F1</title>
+    <meta name="description" content="Reglamento oficial de la PureSkill League F1. Consulta las normas de competición, requisitos técnicos y código de conducta.">
+    <link rel="stylesheet" href="css/min/style.min.css">
+    <link rel="stylesheet" href="css/min/animations.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="glow-container">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">
+                    <svg width="50" height="50" viewBox="0 0 50 50">
+                        <path class="logo-path" d="M25,2 L48,25 L25,48 L2,25 L25,2 Z M25,10 L40,25 L25,40 L10,25 L25,10 Z" fill="none" stroke="#00ffff" stroke-width="2"></path>
+                        <text x="17" y="29" fill="#00ffff" font-family="Orbitron" font-size="6" font-weight="bold">PSL</text>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>PureSkill <span class="highlight">League</span></h1>
+                    <p class="tagline">Velocidad. Precisión. Victoria.</p>
+                </div>
+            </div>
+            <nav>
+                <input type="checkbox" id="nav-toggle" class="nav-toggle">
+                <label for="nav-toggle" class="nav-toggle-label">
+                    <span class="hamburger-icon"></span>
+                </label>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="calendar.html">Calendario</a></li>
+                    <li><a href="championships.html">Campeonatos</a></li>
+                    <li><a href="teams.html">Escuderías</a></li>
+                    <li class="active"><a href="rules.html">Reglamento</a></li>
+                    <li><a href="registration.html">Inscripción</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                    <li><a href="news.html">Noticias</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-banner">
+            <div class="banner-content">
+                <h2 class="glitch" data-text="REGLAMENTO">REGLAMENTO</h2>
+                <p>Las reglas que rigen nuestra competición</p>
+            </div>
+            <div class="circuit-lines"></div>
+        </section>
+
+        <section class="rules-nav-section">
+            <div class="rules-navigation">
+                <ul class="rules-nav-tabs">
+                    <li class="rules-nav-item active" data-target="general">
+                        <i class="fas fa-book"></i>
+                        <span>General</span>
+                    </li>
+                    <li class="rules-nav-item" data-target="competition">
+                        <i class="fas fa-flag-checkered"></i>
+                        <span>Competición</span>
+                    </li>
+                    <li class="rules-nav-item" data-target="technical">
+                        <i class="fas fa-cogs"></i>
+                        <span>Técnico</span>
+                    </li>
+                    <li class="rules-nav-item" data-target="conduct">
+                        <i class="fas fa-handshake"></i>
+                        <span>Conducta</span>
+                    </li>
+                    <li class="rules-nav-item" data-target="penalties">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Penalizaciones</span>
+                    </li>
+                    <li class="rules-nav-item" data-target="download">
+                        <i class="fas fa-download"></i>
+                        <span>Descargas</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="rules-content">
+                <!-- Sección General -->
+                <div class="rules-panel active" id="general-panel">
+                    <div class="rules-header">
+                        <h2>Reglamento <span class="highlight">General</span></h2>
+                        <div class="section-divider">
+                            <span class="divider-line"></span>
+                            <span class="divider-icon"><i class="fas fa-book"></i></span>
+                            <span class="divider-line"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>1. Introducción</h3>
+                        <p>PureSkill League (PSL) es una competición de simulación de Fórmula 1 dedicada a proporcionar carreras justas, competitivas y emocionantes. Este reglamento establece las normas básicas para la participación en nuestra liga.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>2. Organización</h3>
+                        <p>2.1. La dirección de carrera está formada por un comité de 3 comisarios que supervisarán todas las sesiones oficiales.</p>
+                        <p>2.2. Las decisiones de la dirección de carrera son definitivas y no están sujetas a apelación, salvo en circunstancias excepcionales donde se presenten nuevas evidencias.</p>
+                        <p>2.3. La liga se reserva el derecho de modificar el reglamento si se considera necesario para mantener la integridad competitiva.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>3. Elegibilidad</h3>
+                        <p>3.1. Para participar en PSL, los pilotos deben tener al menos 16 años de edad.</p>
+                        <p>3.2. Todos los participantes deben poseer una copia legal del juego F1 24.</p>
+                        <p>3.3. Los pilotos deben disponer de una conexión a Internet estable con una latencia promedio inferior a 150ms.</p>
+                        <p>3.4. Es obligatorio el uso de un micrófono para la comunicación durante los eventos.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>4. Registro y Participación</h3>
+                        <p>4.1. Los pilotos deben registrarse a través del formulario oficial en la página web de PSL.</p>
+                        <p>4.2. La participación requiere la aceptación explícita de este reglamento.</p>
+                        <p>4.3. Los pilotos pueden competir como independientes o como parte de un equipo.</p>
+                        <p>4.4. La liga se reserva el derecho de rechazar inscripciones sin necesidad de justificación.</p>
+                    </div>
+                </div>
+                
+                <!-- Sección Competición -->
+                <div class="rules-panel" id="competition-panel">
+                    <div class="rules-header">
+                        <h2>Reglamento de <span class="highlight">Competición</span></h2>
+                        <div class="section-divider">
+                            <span class="divider-line"></span>
+                            <span class="divider-icon"><i class="fas fa-flag-checkered"></i></span>
+                            <span class="divider-line"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>5. Formato del Campeonato</h3>
+                        <p>5.1. La temporada constará de 21 Grandes Premios, siguiendo el calendario oficial de F1 2024.</p>
+                        <p>5.2. Cada Gran Premio incluirá sesiones de clasificación y carrera.</p>
+                        <p>5.3. La parrilla de salida se determinará según los resultados de la clasificación.</p>
+                        <p>5.4. La puntuación seguirá el sistema actual de F1: 25-18-15-12-10-8-6-4-2-1, más 1 punto adicional por la vuelta más rápida para un piloto que termine en el top 10.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>6. Sesiones de Carrera</h3>
+                        <p>6.1. Las sesiones de clasificación utilizarán el formato Q1, Q2 y Q3.</p>
+                        <p>6.2. Las carreras tendrán una distancia del 50% respecto a las carreras reales de F1.</p>
+                        <p>6.3. Todas las sesiones utilizarán la meteorología dinámica.</p>
+                        <p>6.4. Los pilotos deben estar presentes 15 minutos antes del inicio de la sesión.</p>
+                        <p>6.5. Si un piloto no puede asistir, debe notificarlo con al menos 24 horas de antelación.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>7. Procedimientos de Carrera</h3>
+                        <p>7.1. Las salidas serán automáticas según el juego.</p>
+                        <p>7.2. Las estrategias de neumáticos y paradas en boxes son libres, respetando las reglas de neumáticos del juego.</p>
+                        <p>7.3. En caso de bandera roja, la carrera se reiniciará según las posiciones en la vuelta anterior.</p>
+                        <p>7.4. Si un piloto sufre una desconexión durante la primera vuelta, se podrá reiniciar la carrera una vez.</p>
+                        <p>7.5. Las desconexiones posteriores se considerarán abandonos.</p>
+                    </div>
+                </div>
+                
+                <!-- Sección Técnica -->
+                <div class="rules-panel" id="technical-panel">
+                    <div class="rules-header">
+                        <h2>Reglamento <span class="highlight">Técnico</span></h2>
+                        <div class="section-divider">
+                            <span class="divider-line"></span>
+                            <span class="divider-icon"><i class="fas fa-cogs"></i></span>
+                            <span class="divider-line"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>8. Configuración del Juego</h3>
+                        <p>8.1. La configuración del servidor será la siguiente:</p>
+                        <ul class="rules-list">
+                            <li>Ayudas: Limitadas (sin línea de trazada dinámica, sin ayuda de frenado)</li>
+                            <li>Daños: Completos</li>
+                            <li>Climatología: Dinámica</li>
+                            <li>Modo Parc Fermé: Activado</li>
+                            <li>Reglamento de Banderas: Completo</li>
+                            <li>Coche de Seguridad: Activado</li>
+                            <li>Formación de Vuelta: Desactivado</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>9. Equipamiento</h3>
+                        <p>9.1. Los participantes pueden utilizar cualquier tipo de periférico de control (volante, mando, teclado).</p>
+                        <p>9.2. No está permitido el uso de macros o programas que automaticen acciones de conducción.</p>
+                        <p>9.3. Los pilotos deben poder compartir su pantalla si se les solicita para verificaciones.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>10. Requisitos de Conexión</h3>
+                        <p>10.1. Los pilotos deben asegurar una conexión estable a Internet.</p>
+                        <p>10.2. Conexión recomendada: 10 Mbps de bajada / 5 Mbps de subida mínimo.</p>
+                        <p>10.3. Si un piloto experimenta problemas recurrentes de conexión que afecten a las carreras, podrá ser requerido que mejore su conexión o se arriesgará a ser excluido.</p>
+                    </div>
+                </div>
+                
+                <!-- Sección Conducta -->
+                <div class="rules-panel" id="conduct-panel">
+                    <div class="rules-header">
+                        <h2>Código de <span class="highlight">Conducta</span></h2>
+                        <div class="section-divider">
+                            <span class="divider-line"></span>
+                            <span class="divider-icon"><i class="fas fa-handshake"></i></span>
+                            <span class="divider-line"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>11. Comportamiento en Pista</h3>
+                        <p>11.1. Los pilotos deben competir de manera justa y respetuosa en todo momento.</p>
+                        <p>11.2. Está prohibido realizar movimientos peligrosos o bloqueos tardíos en frenada.</p>
+                        <p>11.3. Al defender posición, solo se permite un cambio de dirección.</p>
+                        <p>11.4. Cuando se es doblado, se debe permitir el paso de manera segura en cuanto sea posible.</p>
+                        <p>11.5. Las colisiones deliberadas resultarán en penalizaciones severas o exclusión.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>12. Etiqueta de Comunicación</h3>
+                        <p>12.1. Los pilotos deben mantener un lenguaje apropiado en todas las comunicaciones.</p>
+                        <p>12.2. Está prohibido el insulto, acoso o comportamiento irrespetuoso hacia otros participantes.</p>
+                        <p>12.3. Durante la transmisión, los pilotos deberán mantener silencio en el canal general durante las indicaciones de dirección de carrera.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>13. Redes Sociales y Comunicación Externa</h3>
+                        <p>13.1. Los participantes deben mantener un comportamiento profesional al referirse a la liga en redes sociales.</p>
+                        <p>13.2. Está prohibido difundir información confidencial sobre la organización interna de la liga.</p>
+                        <p>13.3. Se anima a los pilotos a promover la liga en sus canales, manteniendo siempre una actitud positiva.</p>
+                    </div>
+                </div>
+                
+                <!-- Sección Penalizaciones -->
+                <div class="rules-panel" id="penalties-panel">
+                    <div class="rules-header">
+                        <h2>Sistema de <span class="highlight">Penalizaciones</span></h2>
+                        <div class="section-divider">
+                            <span class="divider-line"></span>
+                            <span class="divider-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                            <span class="divider-line"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>14. Tipos de Infracciones</h3>
+                        <p>14.1. Infracciones leves: Salirse de pista con ventaja, pequeños contactos sin consecuencias.</p>
+                        <p>14.2. Infracciones moderadas: Colisiones evitables, bloqueos peligrosos, comportamiento antideportivo.</p>
+                        <p>14.3. Infracciones graves: Colisiones deliberadas, insultos o acoso, trampas, comportamiento que dañe la imagen de la liga.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>15. Sistema de Puntos de Penalización</h3>
+                        <p>15.1. Los pilotos acumularán puntos de penalización según la gravedad de sus infracciones:</p>
+                        <ul class="rules-list">
+                            <li>Infracción leve: 1-2 puntos</li>
+                            <li>Infracción moderada: 3-6 puntos</li>
+                            <li>Infracción grave: 7-12 puntos</li>
+                        </ul>
+                        <p>15.2. Al acumular 12 puntos, el piloto será suspendido para la siguiente carrera.</p>
+                        <p>15.3. Los puntos de penalización caducan después de 3 carreras.</p>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>16. Proceso de Revisión</h3>
+                        <p>16.1. Las revisiones de incidentes pueden ser solicitadas hasta 24 horas después de la carrera.</p>
+                        <p>16.2. Para solicitar una revisión, se debe proporcionar una descripción del incidente y evidencia en video.</p>
+                        <p>16.3. La dirección de carrera revisará todos los incidentes reportados y emitirá su decisión antes de la siguiente carrera.</p>
+                        <p>16.4. En casos excepcionales, la dirección de carrera podrá revisar incidentes de oficio sin necesidad de reclamación.</p>
+                    </div>
+                </div>
+                
+                <!-- Sección Descargas -->
+                <div class="rules-panel" id="download-panel">
+                    <div class="rules-header">
+                        <h2>Zona de <span class="highlight">Descargas</span></h2>
+                        <div class="section-divider">
+                            <span class="divider-line"></span>
+                            <span class="divider-icon"><i class="fas fa-download"></i></span>
+                            <span class="divider-line"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="rules-article">
+                        <h3>Recursos Descargables</h3>
+                        <p>En esta sección puedes encontrar archivos y recursos descargables relacionados con la PureSkill League F1.</p>
+                        
+                        <div class="download-cards">
+                            <div class="download-card">
+                                <div class="download-icon">
+                                    <i class="fas fa-file-code"></i>
+                                </div>
+                                <div class="download-info">
+                                    <h4>Código Fuente del Sitio Web</h4>
+                                    <p>Descarga el código completo del sitio web de la PureSkill League F1.</p>
+                                    <a href="/downloads/pureskill-league-website.zip" class="btn btn-download">
+                                        <i class="fas fa-download"></i> Descargar ZIP
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="download-rules">
+            <div class="download-container">
+                <h3>¿Quieres consultar el reglamento completo?</h3>
+                <p>Descarga el documento PDF con todas las normas detalladas de la PureSkill League.</p>
+                <a href="#" class="btn btn-primary">
+                    <i class="far fa-file-pdf"></i> Descargar Reglamento
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <svg width="40" height="40" viewBox="0 0 50 50">
+                    <path class="logo-path" d="M25,2 L48,25 L25,48 L2,25 L25,2 Z M25,10 L40,25 L25,40 L10,25 L25,10 Z" fill="none" stroke="#00ffff" stroke-width="2"></path>
+                    <text x="17" y="29" fill="#00ffff" font-family="Orbitron" font-size="6" font-weight="bold">PSL</text>
+                </svg>
+                <div class="footer-title">
+                    <h2>PureSkill League</h2>
+                    <p>Esports Racing Excellence</p>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Navegación</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="calendar.html">Calendario</a></li>
+                        <li><a href="championships.html">Campeonatos</a></li>
+                        <li><a href="teams.html">Escuderías</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Información</h3>
+                    <ul>
+                        <li><a href="rules.html">Reglamento</a></li>
+                        <li><a href="registration.html">Inscripción</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitch"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PureSkill League. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/min/main.min.js"></script>
+    <script src="js/min/animations.min.js"></script>
+</body>
+</html>

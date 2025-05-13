@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escuderías - PureSkill League F1</title>
+    <meta name="description" content="Conoce a las escuderías que compiten en la PureSkill League F1 y sus pilotos titulares y reservas para la temporada 2024.">
+    <link rel="stylesheet" href="css/min/style.min.css">
+    <link rel="stylesheet" href="css/min/animations.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos adicionales para la página de equipos */
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            padding: var(--space-md);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--team-color);
+            z-index: 2;
+        }
+
+        .team-header {
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .team-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .team-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            filter: brightness(0.7);
+        }
+
+        .team-card:hover .team-image {
+            transform: scale(1.05);
+            filter: brightness(0.9);
+        }
+
+        .team-logo {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--darker);
+            border-radius: 50%;
+            margin-right: 1rem;
+            border: 2px solid var(--team-color);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .team-info {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .team-info h3 {
+            margin-bottom: 0.25rem;
+            color: var(--team-color);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .team-nationality {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .team-drivers {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .driver-section-title {
+            grid-column: 1 / -1;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: var(--team-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .driver-card {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: var(--radius-sm);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .driver-card:hover {
+            transform: translateX(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .driver-number {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--team-color);
+            min-width: 40px;
+            text-align: center;
+            margin-right: 1rem;
+        }
+
+        .driver-info {
+            flex: 1;
+        }
+
+        .driver-info h4 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .driver-details {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            opacity: 0.8;
+        }
+
+        .driver-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        .stat {
+            color: var(--team-color);
+        }
+
+        .team-footer {
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .team-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .team-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--team-color);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-top: 0.25rem;
+        }
+
+        .team-description {
+            padding: 0 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .reserves-section {
+            margin-top: 1rem;
+        }
+
+        .team-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .team-social-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--darker);
+            border-radius: 50%;
+            color: var(--team-color);
+            transition: all 0.3s ease;
+        }
+
+        .team-social-icon:hover {
+            background-color: var(--team-color);
+            color: var(--darker);
+            transform: translateY(-3px);
+        }
+
+        .driver-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+            border: 2px solid var(--team-color);
+        }
+
+        .driver-role {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .driver-role.titular {
+            background-color: rgba(0, 255, 255, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .driver-role.reserva {
+            background-color: rgba(255, 0, 255, 0.1);
+            color: var(--secondary);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+        }
+
+        .team-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--light);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-heading);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: rgba(0, 255, 255, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="glow-container">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">
+                    <svg width="50" height="50" viewBox="0 0 50 50">
+                        <path class="logo-path" d="M25,2 L48,25 L25,48 L2,25 L25,2 Z M25,10 L40,25 L25,40 L10,25 L25,10 Z" fill="none" stroke="#00ffff" stroke-width="2"></path>
+                        <text x="17" y="29" fill="#00ffff" font-family="Orbitron" font-size="6" font-weight="bold">PSL</text>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>PureSkill <span class="highlight">League</span></h1>
+                    <p class="tagline">Velocidad. Precisión. Victoria.</p>
+                </div>
+            </div>
+            <nav>
+                <input type="checkbox" id="nav-toggle" class="nav-toggle">
+                <label for="nav-toggle" class="nav-toggle-label">
+                    <span class="hamburger-icon"></span>
+                </label>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="calendar.html">Calendario</a></li>
+                    <li><a href="championships.html">Campeonatos</a></li>
+                    <li class="active"><a href="teams.html">Escuderías</a></li>
+                    <li><a href="pilots.html">Pilotos</a></li>
+                    <li><a href="rules.html">Reglamento</a></li>
+                    <li><a href="registration.html">Inscripción</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                    <li><a href="news.html">Noticias</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-banner">
+            <div class="banner-content">
+                <h2 class="glitch" data-text="ESCUDERÍAS">ESCUDERÍAS</h2>
+                <p>Conoce a los equipos que luchan por la gloria en 2024</p>
+            </div>
+            <div class="circuit-lines"></div>
+        </section>
+
+        <section class="teams-grid-section">
+            <div class="section-header">
+                <h2>Equipos <span class="highlight">2024</span></h2>
+                <div class="section-divider">
+                    <span class="divider-line"></span>
+                    <span class="divider-icon"><i class="fas fa-car-side"></i></span>
+                    <span class="divider-line"></span>
+                </div>
+                <p class="section-intro">Descubre los 11 equipos que competirán en la temporada 2024 de PureSkill League F1, cada uno con pilotos titulares y reservas preparados para luchar por el campeonato de constructores.</p>
+            </div>
+            
+            <div class="team-filter">
+                <button class="filter-btn active" data-filter="all">Todos los equipos</button>
+                <button class="filter-btn" data-filter="champions">Campeones anteriores</button>
+                <button class="filter-btn" data-filter="newcomers">Equipos nuevos</button>
+            </div>
+            
+            <div class="teams-grid">
+                <!-- Equipo 1 - Quantum Racing -->
+                <div class="team-card" data-category="champions">
+                    <div class="team-header" style="--team-color: #00E3E3;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <path d="M30,5 L55,30 L30,55 L5,30 Z" fill="none" stroke="#00E3E3" stroke-width="2"></path>
+                                <text x="18" y="35" fill="#00E3E3" font-family="Orbitron" font-size="12">QR</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Quantum Racing</h3>
+                            <p class="team-nationality">España</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Quantum Racing Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Quantum Racing ha dominado el campeonato en los últimos años con su enfoque en la precisión técnica y estrategia innovadora. El equipo español continúa siendo la referencia a batir en la parrilla.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Carlos Ramírez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Carlos Ramírez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ESP</span>
+                                    <span class="driver-age">26 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 8</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 14</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">01</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Alejandro Torres" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Alejandro Torres</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ESP</span>
+                                    <span class="driver-age">23 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 4</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 9</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">02</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Pablo Morales" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Pablo Morales</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ESP</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">45</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Alberto Sánchez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Alberto Sánchez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ESP</span>
+                                    <span class="driver-age">21 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">46</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">2</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">12</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">24</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 2 - Velocity Motorsport -->
+                <div class="team-card" data-category="champions">
+                    <div class="team-header" style="--team-color: #FF2D6C;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <circle cx="30" cy="30" r="25" fill="none" stroke="#FF2D6C" stroke-width="2"></circle>
+                                <text x="16" y="35" fill="#FF2D6C" font-family="Orbitron" font-size="12">VM</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Velocity Motorsport</h3>
+                            <p class="team-nationality">México</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Velocity Motorsport Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Velocity Motorsport se caracteriza por su agresiva estrategia en pista y su desarrollo tecnológico de vanguardia. El equipo mexicano está decidido a recuperar el título esta temporada con un renovado monoplaza.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/5.jpg" alt="Miguel López" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Miguel López</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">MEX</span>
+                                    <span class="driver-age">28 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 6</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 12</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">11</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/6.jpg" alt="Daniel Hernández" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Daniel Hernández</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">MEX</span>
+                                    <span class="driver-age">25 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 3</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 7</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">12</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/7.jpg" alt="Alejandro Gutiérrez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Alejandro Gutiérrez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">MEX</span>
+                                    <span class="driver-age">24 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">47</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/8.jpg" alt="Ricardo Mendoza" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Ricardo Mendoza</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">MEX</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">48</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">1</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">9</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">19</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 3 - Apex Performance -->
+                <div class="team-card" data-category="all">
+                    <div class="team-header" style="--team-color: #7B4FFF;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <polygon points="30,5 55,45 5,45" fill="none" stroke="#7B4FFF" stroke-width="2"></polygon>
+                                <text x="17" y="40" fill="#7B4FFF" font-family="Orbitron" font-size="12">AP</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Apex Performance</h3>
+                            <p class="team-nationality">Brasil</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1526550517342-e086b387edda?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80" alt="Apex Performance Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Apex Performance busca maximizar cada curva con su estilo agresivo pero calculado. El equipo brasileño confía en su joven plantilla y en el desarrollo aerodinámico para dar la sorpresa esta temporada.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/9.jpg" alt="Gabriel Silva" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Gabriel Silva</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">BRA</span>
+                                    <span class="driver-age">24 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 5</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 11</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">23</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="Lucas Costa" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Lucas Costa</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">BRA</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 2</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 6</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">24</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Thiago Almeida" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Thiago Almeida</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">BRA</span>
+                                    <span class="driver-age">21 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">49</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Mateus Santos" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Mateus Santos</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">BRA</span>
+                                    <span class="driver-age">23 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">50</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">7</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">17</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 4 - Fusion Racing -->
+                <div class="team-card" data-category="all">
+                    <div class="team-header" style="--team-color: #00FF7F;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <rect x="10" y="10" width="40" height="40" fill="none" stroke="#00FF7F" stroke-width="2" rx="5"></rect>
+                                <text x="16" y="35" fill="#00FF7F" font-family="Orbitron" font-size="12">FR</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Fusion Racing</h3>
+                            <p class="team-nationality">Argentina</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Fusion Racing Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Fusion Racing combina lo mejor de la estrategia tradicional con las innovaciones tecnológicas modernas. El equipo argentino busca consolidar su posición entre los mejores con un planteamiento equilibrado.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/13.jpg" alt="Martín Rodriguez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Martín Rodriguez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ARG</span>
+                                    <span class="driver-age">27 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 3</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 8</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">33</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/14.jpg" alt="Juan Fernández" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Juan Fernández</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ARG</span>
+                                    <span class="driver-age">23 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 1</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 4</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">34</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Franco Peralta" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Franco Peralta</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ARG</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">51</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/16.jpg" alt="Matías González" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Matías González</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ARG</span>
+                                    <span class="driver-age">24 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">52</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">4</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">12</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 5 - Nexus Motorsports -->
+                <div class="team-card" data-category="all">
+                    <div class="team-header" style="--team-color: #FF6B00;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <path d="M10,30 L30,10 L50,30 L30,50 Z" fill="none" stroke="#FF6B00" stroke-width="2"></path>
+                                <text x="15" y="35" fill="#FF6B00" font-family="Orbitron" font-size="12">NM</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Nexus Motorsports</h3>
+                            <p class="team-nationality">Colombia</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1552849397-7a2d7864a9c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Nexus Motorsports Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Nexus Motorsports representa el punto de encuentro entre alta tecnología y táctica agresiva. El equipo colombiano demuestra cada temporada que la consistencia es clave para los buenos resultados.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/17.jpg" alt="Santiago Gómez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Santiago Gómez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">COL</span>
+                                    <span class="driver-age">26 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 2</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 7</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">77</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/18.jpg" alt="Andrés Martínez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Andrés Martínez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">COL</span>
+                                    <span class="driver-age">24 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 1</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 5</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">78</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/19.jpg" alt="Felipe Rodríguez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Felipe Rodríguez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">COL</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">53</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="Sebastián Reyes" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Sebastián Reyes</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">COL</span>
+                                    <span class="driver-age">21 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">54</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">3</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">12</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 6 - Pulse Racing -->
+                <div class="team-card" data-category="all">
+                    <div class="team-header" style="--team-color: #F700FF;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <path d="M10,20 Q30,5 50,20 Q60,30 50,40 Q30,55 10,40 Q0,30 10,20" fill="none" stroke="#F700FF" stroke-width="2"></path>
+                                <text x="15" y="35" fill="#F700FF" font-family="Orbitron" font-size="12">PR</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Pulse Racing</h3>
+                            <p class="team-nationality">Venezuela</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Pulse Racing Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Pulse Racing mantiene un enfoque rítmico y constante en cada circuito. El equipo venezolano ha perfeccionado sus estrategias de carrera y promete ser un contendiente serio para los puntos en cada Gran Premio.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Javier Pérez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Javier Pérez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">VEN</span>
+                                    <span class="driver-age">25 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 2</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 6</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">88</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Carlos Blanco" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Carlos Blanco</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">VEN</span>
+                                    <span class="driver-age">23 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 0</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 3</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">89</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/23.jpg" alt="Luis Mendoza" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Luis Mendoza</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">VEN</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">55</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/24.jpg" alt="Diego Vargas" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Diego Vargas</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">VEN</span>
+                                    <span class="driver-age">21 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">56</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">2</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">9</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 7 - Titan Racing -->
+                <div class="team-card" data-category="all">
+                    <div class="team-header" style="--team-color: #3D8BFF;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <circle cx="30" cy="30" r="20" fill="none" stroke="#3D8BFF" stroke-width="3"></circle>
+                                <text x="16" y="35" fill="#3D8BFF" font-family="Orbitron" font-size="12">TR</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Titan Racing</h3>
+                            <p class="team-nationality">Chile</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1567874333042-9c854b0fc54a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Titan Racing Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Titan Racing combina potencia y resistencia en cada carrera. El equipo chileno apuesta por una solución de motor innovadora y una aerodinámica eficiente para maximizar su rendimiento en todo tipo de circuitos.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/25.jpg" alt="Rodrigo Paz" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Rodrigo Paz</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">CHL</span>
+                                    <span class="driver-age">27 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 1</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 5</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">44</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/26.jpg" alt="Ignacio Vega" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Ignacio Vega</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">CHL</span>
+                                    <span class="driver-age">25 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 0</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 3</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">45</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/27.jpg" alt="Gonzalo Silva" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Gonzalo Silva</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">CHL</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">57</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/28.jpg" alt="Matías Rojas" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Matías Rojas</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">CHL</span>
+                                    <span class="driver-age">23 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">58</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">1</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">8</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 8 - Phantom Racing -->
+                <div class="team-card" data-category="all">
+                    <div class="team-header" style="--team-color: #2E2E2E;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <path d="M30,10 C45,10 50,30 50,30 C50,30 45,50 30,50 C15,50 10,30 10,30 C10,30 15,10 30,10 Z" fill="none" stroke="#2E2E2E" stroke-width="2"></path>
+                                <text x="15" y="35" fill="#2E2E2E" font-family="Orbitron" font-size="12">PH</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Phantom Racing</h3>
+                            <p class="team-nationality">Perú</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1614200392687-202e25b12bb7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Phantom Racing Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Phantom Racing opera en las sombras con un enfoque sigiloso y meticuloso. El equipo peruano es conocido por su capacidad para sorprender con estrategias inesperadas que les permiten obtener resultados por encima de las expectativas.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/29.jpg" alt="Raúl Méndez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Raúl Méndez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">PER</span>
+                                    <span class="driver-age">26 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 1</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 4</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">66</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/30.jpg" alt="Alejandro Díaz" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Alejandro Díaz</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">PER</span>
+                                    <span class="driver-age">24 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 0</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 2</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">67</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/31.jpg" alt="José Jiménez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>José Jiménez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">PER</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">59</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Diego Contreras" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Diego Contreras</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">PER</span>
+                                    <span class="driver-age">21 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">60</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">1</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">6</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 9 - Eclipse Motorsports -->
+                <div class="team-card" data-category="all">
+                    <div class="team-header" style="--team-color: #5A1C81;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <circle cx="30" cy="30" r="15" fill="none" stroke="#5A1C81" stroke-width="2"></circle>
+                                <circle cx="30" cy="30" r="25" fill="none" stroke="#5A1C81" stroke-width="2"></circle>
+                                <text x="16" y="35" fill="#5A1C81" font-family="Orbitron" font-size="12">EM</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Eclipse Motorsports</h3>
+                            <p class="team-nationality">Uruguay</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1550396087-4e5c63a4e044?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1769&q=80" alt="Eclipse Motorsports Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Eclipse Motorsports combina fases de brillantez técnica con estrategias conservadoras según la carrera lo requiera. El equipo uruguayo ha demostrado una capacidad notable para adaptarse a diferentes condiciones de carrera.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Esteban Muñoz" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Esteban Muñoz</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">URY</span>
+                                    <span class="driver-age">27 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 1</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 3</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">55</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="Federico Torres" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Federico Torres</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">URY</span>
+                                    <span class="driver-age">25 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 0</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 2</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">56</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/35.jpg" alt="Nicolás Herrera" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Nicolás Herrera</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">URY</span>
+                                    <span class="driver-age">23 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">61</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="Joaquín Sosa" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Joaquín Sosa</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">URY</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">62</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">1</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">5</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 10 - Vortex Racing -->
+                <div class="team-card" data-category="newcomers">
+                    <div class="team-header" style="--team-color: #0FC1C9;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <path d="M30,10 C40,15 45,25 40,35 C35,45 25,50 15,45 C5,40 0,30 5,20 C10,10 20,5 30,10 Z" fill="none" stroke="#0FC1C9" stroke-width="2"></path>
+                                <text x="16" y="35" fill="#0FC1C9" font-family="Orbitron" font-size="12">VR</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Vortex Racing</h3>
+                            <p class="team-nationality">Ecuador</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1672438412204-5c899a13b1c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Vortex Racing Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Vortex Racing, uno de los nuevos equipos en la parrilla, trae un enfoque dinámico y fluido a la competición. El equipo ecuatoriano apuesta por tecnología aerodinámica avanzada y estrategias innovadoras para destacar desde su debut.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="Andrés Suárez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Andrés Suárez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ECU</span>
+                                    <span class="driver-age">26 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 0</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 0</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">20</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/38.jpg" alt="Mauricio Castro" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Mauricio Castro</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ECU</span>
+                                    <span class="driver-age">24 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 0</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 0</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">21</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/39.jpg" alt="Patricio Vega" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Patricio Vega</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ECU</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">63</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/40.jpg" alt="Carlos Paredes" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Carlos Paredes</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">ECU</span>
+                                    <span class="driver-age">23 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">64</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Equipo 11 - Zenith Racing -->
+                <div class="team-card" data-category="newcomers">
+                    <div class="team-header" style="--team-color: #EEFF00;">
+                        <div class="team-logo">
+                            <svg width="60" height="60" viewBox="0 0 60 60">
+                                <path d="M30,5 L5,55 L55,55 Z" fill="none" stroke="#EEFF00" stroke-width="2"></path>
+                                <text x="16" y="45" fill="#EEFF00" font-family="Orbitron" font-size="12">ZR</text>
+                            </svg>
+                        </div>
+                        <div class="team-info">
+                            <h3>Zenith Racing</h3>
+                            <p class="team-nationality">Paraguay</p>
+                        </div>
+                    </div>
+                    <div class="team-image-container">
+                        <img src="https://images.unsplash.com/photo-1618846042125-0a34a5ad3e2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Zenith Racing Team" class="team-image">
+                    </div>
+                    <div class="team-description">
+                        <p>Zenith Racing aspira a alcanzar las más altas cotas del automovilismo. Como equipo debutante, el conjunto paraguayo trae un enfoque fresco y ambicioso, con una motivación excepcional para competir contra los equipos establecidos.</p>
+                    </div>
+                    <div class="team-drivers">
+                        <h4 class="driver-section-title">Pilotos Titulares</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Bruno García" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Bruno García</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">PAR</span>
+                                    <span class="driver-age">27 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 0</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 0</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">99</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Edgar Benítez" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Edgar Benítez</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">PAR</span>
+                                    <span class="driver-age">24 años</span>
+                                </div>
+                                <div class="driver-stats">
+                                    <span class="stat"><i class="fas fa-trophy"></i> 0</span>
+                                    <span class="stat"><i class="fas fa-medal"></i> 0</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">98</span>
+                            <span class="driver-role titular">Titular</span>
+                        </div>
+                        
+                        <h4 class="driver-section-title reserves-section">Pilotos Reservas</h4>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/43.jpg" alt="Roberto Morales" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Roberto Morales</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">PAR</span>
+                                    <span class="driver-age">23 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">65</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                        <div class="driver-card">
+                            <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Martín Acosta" class="driver-avatar">
+                            <div class="driver-info">
+                                <h4>Martín Acosta</h4>
+                                <div class="driver-details">
+                                    <span class="driver-country">PAR</span>
+                                    <span class="driver-age">22 años</span>
+                                </div>
+                            </div>
+                            <span class="driver-number">66</span>
+                            <span class="driver-role reserva">Reserva</span>
+                        </div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Campeonatos</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Podios</span>
+                            </div>
+                        </div>
+                        <div class="team-socials">
+                            <a href="#" class="team-social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="team-social-icon"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <svg width="40" height="40" viewBox="0 0 50 50">
+                    <path class="logo-path" d="M25,2 L48,25 L25,48 L2,25 L25,2 Z M25,10 L40,25 L25,40 L10,25 L25,10 Z" fill="none" stroke="#00ffff" stroke-width="2"></path>
+                    <text x="17" y="29" fill="#00ffff" font-family="Orbitron" font-size="6" font-weight="bold">PSL</text>
+                </svg>
+                <div class="footer-title">
+                    <h2>PureSkill League</h2>
+                    <p>Esports Racing Excellence</p>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Navegación</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="calendar.html">Calendario</a></li>
+                        <li><a href="championships.html">Campeonatos</a></li>
+                        <li><a href="teams.html">Escuderías</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Información</h3>
+                    <ul>
+                        <li><a href="rules.html">Reglamento</a></li>
+                        <li><a href="registration.html">Inscripción</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitch"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PureSkill League. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/min/main.min.js"></script>
+    <script src="js/min/animations.min.js"></script>
+    <script>
+        // Filtrar equipos según el botón seleccionado
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const teamCards = document.querySelectorAll('.team-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Eliminar clase activa de todos los botones
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Añadir clase activa al botón clickeado
+                this.classList.add('active');
+                
+                // Obtener el filtro seleccionado
+                const filter = this.getAttribute('data-filter');
+                
+                // Filtrar las tarjetas de equipos
+                teamCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        const category = card.getAttribute('data-category');
+                        if (category === filter || category === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+                
+                // Agregar animación a las tarjetas visibles
+                setTimeout(() => {
+                    document.querySelectorAll('.team-card[style="display: block;"]').forEach((card, index) => {
+                        card.style.animationDelay = `${index * 0.1}s`;
+                        card.style.animation = 'fadeIn 0.5s forwards';
+                    });
+                }, 10);
+            });
+        });
+    </script>
+</body>
+</html>

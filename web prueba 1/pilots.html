@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilotos - PureSkill League F1</title>
+    <meta name="description" content="Conoce a todos los pilotos que participan en la PureSkill League F1, tanto titulares como reservas para la temporada 2024.">
+    <link rel="stylesheet" href="css/min/style.min.css">
+    <link rel="stylesheet" href="css/min/animations.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos adicionales para la página de pilotos */
+        .pilots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .pilot-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            box-shadow: var(--shadow-card);
+        }
+        
+        .pilot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+            border-color: var(--primary);
+        }
+        
+        .pilot-role {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--card-bg);
+            padding: 5px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-family: var(--font-heading);
+            z-index: 2;
+        }
+        
+        .pilot-role.titular {
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .pilot-role.reserva {
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+        }
+        
+        .pilot-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+            transition: filter 0.3s ease;
+        }
+        
+        .pilot-card:hover .pilot-image {
+            filter: brightness(1);
+        }
+        
+        .pilot-info {
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .pilot-name {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .pilot-team {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .pilot-details {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            padding-top: 10px;
+        }
+        
+        .pilot-detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background-color: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--light);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-heading);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: rgba(0, 255, 255, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+        
+        .pilot-search {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .pilot-search input {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            color: var(--light);
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+        
+        .pilot-search input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+            outline: none;
+        }
+        
+        .pilot-search i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+        
+        .team-colors {
+            width: 100%;
+            height: 5px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--team-color) 50%, rgba(255,255,255,0.3) 50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="glow-container">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">
+                    <svg width="50" height="50" viewBox="0 0 50 50">
+                        <path class="logo-path" d="M25,2 L48,25 L25,48 L2,25 L25,2 Z M25,10 L40,25 L25,40 L10,25 L25,10 Z" fill="none" stroke="#00ffff" stroke-width="2"></path>
+                        <text x="17" y="29" fill="#00ffff" font-family="Orbitron" font-size="6" font-weight="bold">PSL</text>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>PureSkill <span class="highlight">League</span></h1>
+                    <p class="tagline">Velocidad. Precisión. Victoria.</p>
+                </div>
+            </div>
+            <nav>
+                <input type="checkbox" id="nav-toggle" class="nav-toggle">
+                <label for="nav-toggle" class="nav-toggle-label">
+                    <span class="hamburger-icon"></span>
+                </label>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="calendar.html">Calendario</a></li>
+                    <li><a href="championships.html">Campeonatos</a></li>
+                    <li><a href="teams.html">Escuderías</a></li>
+                    <li class="active"><a href="pilots.html">Pilotos</a></li>
+                    <li><a href="rules.html">Reglamento</a></li>
+                    <li><a href="registration.html">Inscripción</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                    <li><a href="news.html">Noticias</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-banner">
+            <div class="banner-content">
+                <h2 class="glitch" data-text="PILOTOS">PILOTOS</h2>
+                <p>Los mejores talentos compitiendo en la PureSkill League F1</p>
+            </div>
+            <div class="circuit-lines"></div>
+        </section>
+
+        <section class="pilots-section">
+            <div class="section-header">
+                <h2>Plantel de <span class="highlight">Pilotos</span> 2024</h2>
+                <div class="section-divider">
+                    <span class="divider-line"></span>
+                    <span class="divider-icon"><i class="fas fa-user-astronaut"></i></span>
+                    <span class="divider-line"></span>
+                </div>
+                <p class="section-intro">Conoce a todos los pilotos que participan en nuestra liga, desde los titulares que luchan por el campeonato hasta los reservas preparados para entrar en acción en cualquier momento.</p>
+            </div>
+
+            <div class="pilot-search">
+                <input type="text" id="pilot-search" placeholder="Buscar piloto por nombre o equipo...">
+                <i class="fas fa-search"></i>
+            </div>
+
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="titular">Titulares</button>
+                <button class="filter-btn" data-filter="reserva">Reservas</button>
+                <button class="filter-btn" data-filter="quantum-racing">Quantum Racing</button>
+                <button class="filter-btn" data-filter="velocity-motorsport">Velocity Motorsport</button>
+                <button class="filter-btn" data-filter="apex-performance">Apex Performance</button>
+                <button class="filter-btn" data-filter="fusion-racing">Fusion Racing</button>
+                <button class="filter-btn" data-filter="nexus-motorsports">Nexus Motorsports</button>
+                <button class="filter-btn" data-filter="pulse-racing">Pulse Racing</button>
+                <button class="filter-btn" data-filter="titan-racing">Titan Racing</button>
+                <button class="filter-btn" data-filter="phantom-racing">Phantom Racing</button>
+                <button class="filter-btn" data-filter="eclipse-motorsports">Eclipse Motorsports</button>
+                <button class="filter-btn" data-filter="vortex-racing">Vortex Racing</button>
+                <button class="filter-btn" data-filter="zenith-racing">Zenith Racing</button>
+            </div>
+
+            <div class="pilots-grid">
+                <!-- Quantum Racing -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="quantum-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Carlos Ramírez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Carlos Ramírez</h3>
+                        <div class="pilot-team">Quantum Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ESP</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>26</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#01</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #00E3E3;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="quantum-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Alejandro Torres" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Alejandro Torres</h3>
+                        <div class="pilot-team">Quantum Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ESP</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>23</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#02</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #00E3E3;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="quantum-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Pablo Morales" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Pablo Morales</h3>
+                        <div class="pilot-team">Quantum Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ESP</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#45</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #00E3E3;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="quantum-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Alberto Sánchez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Alberto Sánchez</h3>
+                        <div class="pilot-team">Quantum Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ESP</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>21</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#46</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #00E3E3;"></div>
+                </div>
+
+                <!-- Velocity Motorsport -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="velocity-motorsport">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/5.jpg" alt="Miguel López" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Miguel López</h3>
+                        <div class="pilot-team">Velocity Motorsport</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>MEX</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>28</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#11</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #FF2D6C;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="velocity-motorsport">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/6.jpg" alt="Daniel Hernández" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Daniel Hernández</h3>
+                        <div class="pilot-team">Velocity Motorsport</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>MEX</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>25</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#12</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #FF2D6C;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="velocity-motorsport">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/7.jpg" alt="Alejandro Gutiérrez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Alejandro Gutiérrez</h3>
+                        <div class="pilot-team">Velocity Motorsport</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>MEX</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>24</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#47</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #FF2D6C;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="velocity-motorsport">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/8.jpg" alt="Ricardo Mendoza" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Ricardo Mendoza</h3>
+                        <div class="pilot-team">Velocity Motorsport</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>MEX</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#48</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #FF2D6C;"></div>
+                </div>
+
+                <!-- Apex Performance -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="apex-performance">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/9.jpg" alt="Gabriel Silva" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Gabriel Silva</h3>
+                        <div class="pilot-team">Apex Performance</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>BRA</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>24</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#23</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #7B4FFF;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="apex-performance">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="Lucas Costa" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Lucas Costa</h3>
+                        <div class="pilot-team">Apex Performance</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>BRA</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#24</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #7B4FFF;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="apex-performance">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Thiago Almeida" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Thiago Almeida</h3>
+                        <div class="pilot-team">Apex Performance</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>BRA</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>21</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#49</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #7B4FFF;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="apex-performance">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Mateus Santos" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Mateus Santos</h3>
+                        <div class="pilot-team">Apex Performance</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>BRA</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>23</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#50</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #7B4FFF;"></div>
+                </div>
+
+                <!-- Fusion Racing -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="fusion-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/13.jpg" alt="Martín Rodriguez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Martín Rodriguez</h3>
+                        <div class="pilot-team">Fusion Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ARG</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>27</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#33</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #00FF7F;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="fusion-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/14.jpg" alt="Juan Fernández" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Juan Fernández</h3>
+                        <div class="pilot-team">Fusion Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ARG</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>23</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#34</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #00FF7F;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="fusion-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Franco Peralta" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Franco Peralta</h3>
+                        <div class="pilot-team">Fusion Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ARG</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#51</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #00FF7F;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="fusion-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/16.jpg" alt="Matías González" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Matías González</h3>
+                        <div class="pilot-team">Fusion Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ARG</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>24</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#52</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #00FF7F;"></div>
+                </div>
+
+                <!-- Nexus Motorsports -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="nexus-motorsports">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/17.jpg" alt="Santiago Gómez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Santiago Gómez</h3>
+                        <div class="pilot-team">Nexus Motorsports</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>COL</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>26</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#77</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #FF6B00;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="nexus-motorsports">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/18.jpg" alt="Andrés Martínez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Andrés Martínez</h3>
+                        <div class="pilot-team">Nexus Motorsports</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>COL</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>24</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#78</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #FF6B00;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="nexus-motorsports">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/19.jpg" alt="Felipe Rodríguez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Felipe Rodríguez</h3>
+                        <div class="pilot-team">Nexus Motorsports</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>COL</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#53</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #FF6B00;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="nexus-motorsports">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="Sebastián Reyes" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Sebastián Reyes</h3>
+                        <div class="pilot-team">Nexus Motorsports</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>COL</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>21</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#54</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #FF6B00;"></div>
+                </div>
+
+                <!-- Pulse Racing -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="pulse-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Javier Pérez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Javier Pérez</h3>
+                        <div class="pilot-team">Pulse Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>VEN</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>25</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#88</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #F700FF;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="pulse-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Carlos Blanco" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Carlos Blanco</h3>
+                        <div class="pilot-team">Pulse Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>VEN</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>23</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#89</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #F700FF;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="pulse-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/23.jpg" alt="Luis Mendoza" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Luis Mendoza</h3>
+                        <div class="pilot-team">Pulse Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>VEN</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#55</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #F700FF;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="pulse-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/24.jpg" alt="Diego Vargas" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Diego Vargas</h3>
+                        <div class="pilot-team">Pulse Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>VEN</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>21</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#56</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #F700FF;"></div>
+                </div>
+
+                <!-- Titan Racing -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="titan-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/25.jpg" alt="Rodrigo Paz" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Rodrigo Paz</h3>
+                        <div class="pilot-team">Titan Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>CHL</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>27</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#44</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #3D8BFF;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="titan-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/26.jpg" alt="Ignacio Vega" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Ignacio Vega</h3>
+                        <div class="pilot-team">Titan Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>CHL</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>25</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#45</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #3D8BFF;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="titan-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/27.jpg" alt="Gonzalo Silva" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Gonzalo Silva</h3>
+                        <div class="pilot-team">Titan Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>CHL</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#57</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #3D8BFF;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="titan-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/28.jpg" alt="Matías Rojas" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Matías Rojas</h3>
+                        <div class="pilot-team">Titan Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>CHL</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>23</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#58</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #3D8BFF;"></div>
+                </div>
+
+                <!-- Phantom Racing -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="phantom-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/29.jpg" alt="Raúl Méndez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Raúl Méndez</h3>
+                        <div class="pilot-team">Phantom Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>PER</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>26</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#66</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #2E2E2E;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="phantom-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/30.jpg" alt="Alejandro Díaz" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Alejandro Díaz</h3>
+                        <div class="pilot-team">Phantom Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>PER</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>24</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#67</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #2E2E2E;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="phantom-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/31.jpg" alt="José Jiménez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">José Jiménez</h3>
+                        <div class="pilot-team">Phantom Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>PER</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#59</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #2E2E2E;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="phantom-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Diego Contreras" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Diego Contreras</h3>
+                        <div class="pilot-team">Phantom Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>PER</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>21</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#60</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #2E2E2E;"></div>
+                </div>
+
+                <!-- Eclipse Motorsports -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="eclipse-motorsports">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Esteban Muñoz" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Esteban Muñoz</h3>
+                        <div class="pilot-team">Eclipse Motorsports</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>URY</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>27</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#55</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #5A1C81;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="eclipse-motorsports">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="Federico Torres" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Federico Torres</h3>
+                        <div class="pilot-team">Eclipse Motorsports</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>URY</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>25</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#56</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #5A1C81;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="eclipse-motorsports">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/35.jpg" alt="Nicolás Herrera" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Nicolás Herrera</h3>
+                        <div class="pilot-team">Eclipse Motorsports</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>URY</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>23</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#61</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #5A1C81;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="eclipse-motorsports">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="Joaquín Sosa" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Joaquín Sosa</h3>
+                        <div class="pilot-team">Eclipse Motorsports</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>URY</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#62</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #5A1C81;"></div>
+                </div>
+
+                <!-- Vortex Racing -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="vortex-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="Andrés Suárez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Andrés Suárez</h3>
+                        <div class="pilot-team">Vortex Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ECU</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>26</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#20</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #0FC1C9;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="vortex-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/38.jpg" alt="Mauricio Castro" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Mauricio Castro</h3>
+                        <div class="pilot-team">Vortex Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ECU</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>24</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#21</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #0FC1C9;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="vortex-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/39.jpg" alt="Patricio Vega" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Patricio Vega</h3>
+                        <div class="pilot-team">Vortex Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ECU</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#63</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #0FC1C9;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="vortex-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/40.jpg" alt="Carlos Paredes" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Carlos Paredes</h3>
+                        <div class="pilot-team">Vortex Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>ECU</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>23</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#64</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #0FC1C9;"></div>
+                </div>
+
+                <!-- Zenith Racing -->
+                <!-- Titulares -->
+                <div class="pilot-card" data-role="titular" data-team="zenith-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Bruno García" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Bruno García</h3>
+                        <div class="pilot-team">Zenith Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>PAR</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>27</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#99</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #EEFF00;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="titular" data-team="zenith-racing">
+                    <span class="pilot-role titular">Titular</span>
+                    <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Edgar Benítez" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Edgar Benítez</h3>
+                        <div class="pilot-team">Zenith Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>PAR</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>24</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#98</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #EEFF00;"></div>
+                </div>
+
+                <!-- Reservas -->
+                <div class="pilot-card" data-role="reserva" data-team="zenith-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/43.jpg" alt="Roberto Morales" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Roberto Morales</h3>
+                        <div class="pilot-team">Zenith Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>PAR</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>23</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#65</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #EEFF00;"></div>
+                </div>
+
+                <div class="pilot-card" data-role="reserva" data-team="zenith-racing">
+                    <span class="pilot-role reserva">Reserva</span>
+                    <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Martín Acosta" class="pilot-image">
+                    <div class="pilot-info">
+                        <h3 class="pilot-name">Martín Acosta</h3>
+                        <div class="pilot-team">Zenith Racing</div>
+                        <div class="pilot-details">
+                            <div class="pilot-detail">
+                                <span>PAR</span>
+                                <small>Nacionalidad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>22</span>
+                                <small>Edad</small>
+                            </div>
+                            <div class="pilot-detail">
+                                <span>#66</span>
+                                <small>Número</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-colors" style="--team-color: #EEFF00;"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <svg width="40" height="40" viewBox="0 0 50 50">
+                    <path class="logo-path" d="M25,2 L48,25 L25,48 L2,25 L25,2 Z M25,10 L40,25 L25,40 L10,25 L25,10 Z" fill="none" stroke="#00ffff" stroke-width="2"></path>
+                    <text x="17" y="29" fill="#00ffff" font-family="Orbitron" font-size="6" font-weight="bold">PSL</text>
+                </svg>
+                <div class="footer-title">
+                    <h2>PureSkill League</h2>
+                    <p>Esports Racing Excellence</p>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Navegación</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="calendar.html">Calendario</a></li>
+                        <li><a href="championships.html">Campeonatos</a></li>
+                        <li><a href="teams.html">Escuderías</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Información</h3>
+                    <ul>
+                        <li><a href="rules.html">Reglamento</a></li>
+                        <li><a href="registration.html">Inscripción</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitch"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PureSkill League. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/min/main.min.js"></script>
+    <script src="js/min/animations.min.js"></script>
+    <script>
+        // Filtrar pilotos según el botón seleccionado
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const pilotCards = document.querySelectorAll('.pilot-card');
+        const searchInput = document.getElementById('pilot-search');
+
+        // Función para aplicar filtros
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+
+            pilotCards.forEach(card => {
+                const pilotName = card.querySelector('.pilot-name').textContent.toLowerCase();
+                const pilotTeam = card.querySelector('.pilot-team').textContent.toLowerCase();
+                const teamFilter = card.getAttribute('data-team');
+                const roleFilter = card.getAttribute('data-role');
+                
+                // Filtro de búsqueda
+                const matchesSearch = pilotName.includes(searchTerm) || pilotTeam.includes(searchTerm);
+                
+                // Filtro de botón
+                let matchesButton = false;
+                if (activeFilter === 'all') {
+                    matchesButton = true;
+                } else if (activeFilter === 'titular' || activeFilter === 'reserva') {
+                    matchesButton = roleFilter === activeFilter;
+                } else {
+                    matchesButton = teamFilter === activeFilter;
+                }
+                
+                // Mostrar u ocultar tarjeta
+                if (matchesSearch && matchesButton) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Event listeners
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                applyFilters();
+            });
+        });
+
+        searchInput.addEventListener('input', applyFilters);
+
+        // Iniciar con todos los pilotos visibles
+        document.addEventListener('DOMContentLoaded', () => {
+            filterButtons[0].classList.add('active');
+            applyFilters();
+        });
+    </script>
+</body>
+</html>

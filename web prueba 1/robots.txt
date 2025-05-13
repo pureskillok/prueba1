@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pureskilleague.com/sitemap.xml
+
+# Directories to exclude
+Disallow: /css/
+Disallow: /js/
+Disallow: /img/

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción - PureSkill League F1</title>
+    <meta name="description" content="Únete a la liga de esports F1 más competitiva. Inscríbete ahora a PureSkill League y demuestra tus habilidades en la pista virtual.">
+    <link rel="stylesheet" href="css/min/style.min.css">
+    <link rel="stylesheet" href="css/min/animations.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="glow-container">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">
+                    <svg width="50" height="50" viewBox="0 0 50 50">
+                        <path class="logo-path" d="M25,2 L48,25 L25,48 L2,25 L25,2 Z M25,10 L40,25 L25,40 L10,25 L25,10 Z" fill="none" stroke="#00ffff" stroke-width="2"></path>
+                        <text x="17" y="29" fill="#00ffff" font-family="Orbitron" font-size="6" font-weight="bold">PSL</text>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>PureSkill <span class="highlight">League</span></h1>
+                    <p class="tagline">Velocidad. Precisión. Victoria.</p>
+                </div>
+            </div>
+            <nav>
+                <input type="checkbox" id="nav-toggle" class="nav-toggle">
+                <label for="nav-toggle" class="nav-toggle-label">
+                    <span class="hamburger-icon"></span>
+                </label>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="calendar.html">Calendario</a></li>
+                    <li><a href="championships.html">Campeonatos</a></li>
+                    <li><a href="teams.html">Escuderías</a></li>
+                    <li><a href="rules.html">Reglamento</a></li>
+                    <li class="active"><a href="registration.html">Inscripción</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                    <li><a href="news.html">Noticias</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-banner">
+            <div class="banner-content">
+                <h2 class="glitch" data-text="INSCRIPCIÓN">INSCRIPCIÓN</h2>
+                <p>¿Tienes lo que hace falta para competir con los mejores?</p>
+            </div>
+            <div class="circuit-lines"></div>
+        </section>
+
+        <section class="registration-section">
+            <div class="section-header">
+                <h2>Únete a la <span class="highlight">Competición</span></h2>
+                <div class="section-divider">
+                    <span class="divider-line"></span>
+                    <span class="divider-icon"><i class="fas fa-user-plus"></i></span>
+                    <span class="divider-line"></span>
+                </div>
+                <p class="section-intro">Completa el siguiente formulario para inscribirte en la temporada 2024 de PureSkill League. Lee atentamente los requisitos y asegúrate de proporcionar información precisa.</p>
+            </div>
+
+            <div class="registration-container">
+                <div class="registration-info">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>Plazos</h3>
+                        <p>Inscripciones abiertas hasta el 1 de Mayo de 2024. La temporada comienza el 12 de Mayo.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Requisitos</h3>
+                        <p>Juego F1 24, conexión estable a Internet y disponibilidad para carreras los domingos a las 20:00 CET.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Comunicación</h3>
+                        <p>Obligatorio el uso de Discord para comunicación durante los eventos oficiales.</p>
+                    </div>
+                </div>
+
+                <form id="registration-form" class="registration-form">
+                    <div class="form-section">
+                        <h3 class="form-section-title">Información Personal</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullname">Nombre Completo <span class="required">*</span></label>
+                                <input type="text" id="fullname" name="fullname" required>
+                                <span class="error-message" id="fullname-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="nickname">Gamertag / Apodo <span class="required">*</span></label>
+                                <input type="text" id="nickname" name="nickname" required>
+                                <span class="error-message" id="nickname-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" required>
+                                <span class="error-message" id="email-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="discord">ID de Discord <span class="required">*</span></label>
+                                <input type="text" id="discord" name="discord" placeholder="usuario#0000" required>
+                                <span class="error-message" id="discord-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="birthdate">Fecha de Nacimiento <span class="required">*</span></label>
+                                <input type="date" id="birthdate" name="birthdate" required>
+                                <span class="error-message" id="birthdate-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="nationality">Nacionalidad <span class="required">*</span></label>
+                                <select id="nationality" name="nationality" required>
+                                    <option value="">Selecciona tu país</option>
+                                    <option value="ES">España</option>
+                                    <option value="MX">México</option>
+                                    <option value="AR">Argentina</option>
+                                    <option value="CO">Colombia</option>
+                                    <option value="CL">Chile</option>
+                                    <option value="PE">Perú</option>
+                                    <option value="VE">Venezuela</option>
+                                    <option value="BR">Brasil</option>
+                                    <option value="UY">Uruguay</option>
+                                    <option value="EC">Ecuador</option>
+                                    <option value="OTHER">Otro</option>
+                                </select>
+                                <span class="error-message" id="nationality-error"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">Experiencia y Preferencias</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="experience">Experiencia en Simracing <span class="required">*</span></label>
+                                <select id="experience" name="experience" required>
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="beginner">Principiante (menos de 1 año)</option>
+                                    <option value="intermediate">Intermedio (1-2 años)</option>
+                                    <option value="advanced">Avanzado (2-4 años)</option>
+                                    <option value="expert">Experto (más de 4 años)</option>
+                                </select>
+                                <span class="error-message" id="experience-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="platform">Plataforma <span class="required">*</span></label>
+                                <select id="platform" name="platform" required>
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="pc">PC</option>
+                                    <option value="ps5">PlayStation 5</option>
+                                    <option value="xbox">Xbox Series X/S</option>
+                                </select>
+                                <span class="error-message" id="platform-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="team-preference">Preferencia de Equipo</label>
+                                <select id="team-preference" name="team-preference">
+                                    <option value="">Sin preferencia</option>
+                                    <option value="quantum">Quantum Racing</option>
+                                    <option value="velocity">Velocity Motorsport</option>
+                                    <option value="apex">Apex Performance</option>
+                                    <option value="fusion">Fusion Racing</option>
+                                    <option value="nexus">Nexus Motorsports</option>
+                                    <option value="pulse">Pulse Racing</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="car-number">Número de Coche Preferido <span class="required">*</span></label>
+                                <input type="number" id="car-number" name="car-number" min="0" max="99" required>
+                                <span class="error-message" id="car-number-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="previous-leagues">Ligas anteriores (si aplica)</label>
+                            <textarea id="previous-leagues" name="previous-leagues" rows="2" placeholder="Menciona otras ligas en las que hayas participado"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">Disponibilidad y Confirmación</h3>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="availability" name="availability" required>
+                                <span class="checkmark"></span>
+                                Confirmo disponibilidad para carreras los domingos a las 20:00 CET <span class="required">*</span>
+                            </label>
+                            <span class="error-message" id="availability-error"></span>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="rules-agreement" name="rules-agreement" required>
+                                <span class="checkmark"></span>
+                                He leído y acepto el <a href="rules.html" target="_blank">reglamento</a> de PureSkill League <span class="required">*</span>
+                            </label>
+                            <span class="error-message" id="rules-agreement-error"></span>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="privacy-policy" name="privacy-policy" required>
+                                <span class="checkmark"></span>
+                                Acepto la política de privacidad y el tratamiento de mis datos <span class="required">*</span>
+                            </label>
+                            <span class="error-message" id="privacy-policy-error"></span>
+                        </div>
+
+                        <div class="form-group captcha-group">
+                            <div class="captcha-container">
+                                <div class="captcha-code" id="captcha-code"></div>
+                                <button type="button" id="refresh-captcha"><i class="fas fa-sync-alt"></i></button>
+                            </div>
+                            <input type="text" id="captcha-input" name="captcha" placeholder="Introduce el código" required>
+                            <span class="error-message" id="captcha-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
+                        <button type="submit" class="btn btn-primary">Enviar Inscripción <i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="registration-info-section">
+            <div class="section-header">
+                <h2>Proceso de <span class="highlight">Selección</span></h2>
+                <div class="section-divider">
+                    <span class="divider-line"></span>
+                    <span class="divider-icon"><i class="fas fa-tasks"></i></span>
+                    <span class="divider-line"></span>
+                </div>
+            </div>
+
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>1. Inscripción</h3>
+                        <p>Completa el formulario de inscripción antes del 1 de Mayo.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>2. Revisión</h3>
+                        <p>Evaluación de candidatos por parte del comité organizador.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>3. Prueba de Ritmo</h3>
+                        <p>Los candidatos preseleccionados realizarán una prueba de clasificación.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>4. Asignación de Equipos</h3>
+                        <p>Distribución de pilotos en equipos según resultados y preferencias.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-flag-checkered"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>5. Inicio de Temporada</h3>
+                        <p>¡Comienza la competición el 12 de Mayo!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <svg width="40" height="40" viewBox="0 0 50 50">
+                    <path class="logo-path" d="M25,2 L48,25 L25,48 L2,25 L25,2 Z M25,10 L40,25 L25,40 L10,25 L25,10 Z" fill="none" stroke="#00ffff" stroke-width="2"></path>
+                    <text x="17" y="29" fill="#00ffff" font-family="Orbitron" font-size="6" font-weight="bold">PSL</text>
+                </svg>
+                <div class="footer-title">
+                    <h2>PureSkill League</h2>
+                    <p>Esports Racing Excellence</p>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Navegación</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="calendar.html">Calendario</a></li>
+                        <li><a href="championships.html">Campeonatos</a></li>
+                        <li><a href="teams.html">Escuderías</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Información</h3>
+                    <ul>
+                        <li><a href="rules.html">Reglamento</a></li>
+                        <li><a href="registration.html">Inscripción</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitch"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PureSkill League. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Confirmación -->
+    <div class="modal" id="confirmation-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-check-circle"></i> Inscripción Enviada</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Tu solicitud de inscripción ha sido recibida correctamente. Recibirás un correo de confirmación con los siguientes pasos.</p>
+                <p>Número de referencia: <span id="reference-number"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="close-modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/min/main.min.js"></script>
+    <script src="js/min/animations.min.js"></script>
+    <script src="js/form-validation.js"></script>
+</body>
+</html>

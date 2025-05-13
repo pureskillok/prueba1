@@ -1,0 +1,606 @@
+/* 
+ * PureSkill League F1 - Animations Stylesheet
+ * Animations for a futuristic, speed-focused esports racing site
+ */
+
+/*------------------------------------------*
+ * Animation Keyframes                      *
+ *------------------------------------------*/
+
+/* Float Animation for Background Elements */
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-30px, 20px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Pulse Animation for Logo and UI Elements */
+@keyframes logoPulse {
+  0% {
+    stroke-width: 2;
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-width: 3;
+    stroke-opacity: 0.8;
+  }
+  100% {
+    stroke-width: 2;
+    stroke-opacity: 1;
+  }
+}
+
+/* Speed Lines Animation */
+@keyframes speedLines {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100px 0;
+  }
+}
+
+/* Glitch Text Effect */
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(10px, 9999px, 30px, 0);
+    transform: skew(0.2deg);
+  }
+  5% {
+    clip: rect(80px, 9999px, 76px, 0);
+    transform: skew(0.63deg);
+  }
+  10% {
+    clip: rect(56px, 9999px, 93px, 0);
+    transform: skew(0.09deg);
+  }
+  15% {
+    clip: rect(27px, 9999px, 46px, 0);
+    transform: skew(0.73deg);
+  }
+  20% {
+    clip: rect(32px, 9999px, 50px, 0);
+    transform: skew(0.64deg);
+  }
+  25% {
+    clip: rect(42px, 9999px, 8px, 0);
+    transform: skew(0.27deg);
+  }
+  30% {
+    clip: rect(23px, 9999px, 66px, 0);
+    transform: skew(0.91deg);
+  }
+  35% {
+    clip: rect(46px, 9999px, 88px, 0);
+    transform: skew(0.93deg);
+  }
+  40% {
+    clip: rect(11px, 9999px, 71px, 0);
+    transform: skew(0.01deg);
+  }
+  45% {
+    clip: rect(39px, 9999px, 20px, 0);
+    transform: skew(0.56deg);
+  }
+  50% {
+    clip: rect(51px, 9999px, 2px, 0);
+    transform: skew(0.48deg);
+  }
+  55% {
+    clip: rect(83px, 9999px, 31px, 0);
+    transform: skew(0.06deg);
+  }
+  60% {
+    clip: rect(94px, 9999px, 98px, 0);
+    transform: skew(0.99deg);
+  }
+  65% {
+    clip: rect(76px, 9999px, 39px, 0);
+    transform: skew(0.36deg);
+  }
+  70% {
+    clip: rect(40px, 9999px, 31px, 0);
+    transform: skew(0.75deg);
+  }
+  75% {
+    clip: rect(54px, 9999px, 99px, 0);
+    transform: skew(0.52deg);
+  }
+  80% {
+    clip: rect(57px, 9999px, 14px, 0);
+    transform: skew(0.8deg);
+  }
+  85% {
+    clip: rect(83px, 9999px, 7px, 0);
+    transform: skew(0.08deg);
+  }
+  90% {
+    clip: rect(100px, 9999px, 74px, 0);
+    transform: skew(0.09deg);
+  }
+  95% {
+    clip: rect(88px, 9999px, 4px, 0);
+    transform: skew(0.25deg);
+  }
+  100% {
+    clip: rect(35px, 9999px, 11px, 0);
+    transform: skew(0.68deg);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(76px, 9999px, 34px, 0);
+    transform: skew(0.47deg);
+  }
+  5% {
+    clip: rect(60px, 9999px, 35px, 0);
+    transform: skew(0.85deg);
+  }
+  10% {
+    clip: rect(66px, 9999px, 85px, 0);
+    transform: skew(0.65deg);
+  }
+  15% {
+    clip: rect(43px, 9999px, 81px, 0);
+    transform: skew(0.18deg);
+  }
+  20% {
+    clip: rect(15px, 9999px, 21px, 0);
+    transform: skew(0.75deg);
+  }
+  25% {
+    clip: rect(22px, 9999px, 39px, 0);
+    transform: skew(0.76deg);
+  }
+  30% {
+    clip: rect(97px, 9999px, 82px, 0);
+    transform: skew(0.3deg);
+  }
+  35% {
+    clip: rect(37px, 9999px, 100px, 0);
+    transform: skew(0.05deg);
+  }
+  40% {
+    clip: rect(65px, 9999px, 73px, 0);
+    transform: skew(0.65deg);
+  }
+  45% {
+    clip: rect(53px, 9999px, 30px, 0);
+    transform: skew(0.99deg);
+  }
+  50% {
+    clip: rect(82px, 9999px, 35px, 0);
+    transform: skew(0.85deg);
+  }
+  55% {
+    clip: rect(7px, 9999px, 92px, 0);
+    transform: skew(0.09deg);
+  }
+  60% {
+    clip: rect(6px, 9999px, 49px, 0);
+    transform: skew(0.44deg);
+  }
+  65% {
+    clip: rect(67px, 9999px, 6px, 0);
+    transform: skew(0.07deg);
+  }
+  70% {
+    clip: rect(50px, 9999px, 64px, 0);
+    transform: skew(0.19deg);
+  }
+  75% {
+    clip: rect(52px, 9999px, 11px, 0);
+    transform: skew(0.43deg);
+  }
+  80% {
+    clip: rect(87px, 9999px, 1px, 0);
+    transform: skew(0.73deg);
+  }
+  85% {
+    clip: rect(3px, 9999px, 57px, 0);
+    transform: skew(0.14deg);
+  }
+  90% {
+    clip: rect(89px, 9999px, 29px, 0);
+    transform: skew(0.06deg);
+  }
+  95% {
+    clip: rect(73px, 9999px, 55px, 0);
+    transform: skew(0.9deg);
+  }
+  100% {
+    clip: rect(26px, 9999px, 80px, 0);
+    transform: skew(0.86deg);
+  }
+}
+
+/* Modal Animation */
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typing Animation */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--primary) }
+}
+
+/* Glow Animation */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+  }
+  50% {
+    box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+  }
+}
+
+/* Hover Animation */
+@keyframes hover-bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Countdown Animation */
+@keyframes countdown-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Race card hover effect */
+@keyframes race-hover {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-5px) rotate(1deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+}
+
+/* Load animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*------------------------------------------*
+ * Element Animations                       *
+ *------------------------------------------*/
+
+/* Glitch Text Effect */
+.glitch {
+  position: relative;
+  color: white;
+  text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+  animation: glow 3s infinite alternate;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 0, 0, 0);
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: 1px 0 var(--secondary);
+  background: rgba(0, 0, 0, 0.2);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -1px 0 var(--accent-1);
+  background: rgba(0, 0, 0, 0.2);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+/* Speed Lines Animation */
+.speed-lines {
+  animation: speedLines 20s linear infinite;
+}
+
+/* Section and Card Entry Animations */
+.news-card, 
+.feature-card, 
+.next-race-card,
+.race-card,
+.format-card,
+.team-card,
+.regulation-card,
+.info-card,
+.contact-card,
+.accordion-item,
+.social-platform {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Countdown Animation */
+.countdown-item span.days,
+.countdown-item span.hours,
+.countdown-item span.minutes,
+.countdown-item span.seconds {
+  animation: countdown-pulse 2s infinite;
+}
+
+/* Hover Effects with Animation */
+.btn:hover {
+  animation: hover-bounce 1s ease infinite;
+}
+
+/* Page Transitions */
+body {
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Circuit Graphic Animation */
+.circuit-lines {
+  animation: float 60s infinite alternate linear;
+}
+
+/* Tracking Lines for Racing Effect */
+.tracking-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary), transparent);
+  opacity: 0.3;
+  width: 100%;
+  left: 0;
+  transform-origin: left;
+  animation: trackingLine 3s infinite linear;
+}
+
+@keyframes trackingLine {
+  0% {
+    transform: scaleX(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scaleX(0);
+    opacity: 0.3;
+  }
+}
+
+/* Add multiple tracking lines at different positions */
+.hero::before {
+  content: '';
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  width: 100%;
+  top: 30%;
+  left: -100%;
+  animation: trackingLine 6s infinite linear;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+  width: 100%;
+  top: 70%;
+  right: -100%;
+  animation: trackingLine 8s 1s infinite linear;
+}
+
+/* Text reveal animation */
+.text-reveal {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.text-reveal span {
+  display: inline-block;
+  transform: translateY(100%);
+  animation: textReveal 0.6s forwards ease-out;
+}
+
+@keyframes textReveal {
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Add delay to children for staggered animation */
+.text-reveal span:nth-child(1) { animation-delay: 0.1s; }
+.text-reveal span:nth-child(2) { animation-delay: 0.2s; }
+.text-reveal span:nth-child(3) { animation-delay: 0.3s; }
+.text-reveal span:nth-child(4) { animation-delay: 0.4s; }
+.text-reveal span:nth-child(5) { animation-delay: 0.5s; }
+
+/* Neon flicker effect */
+.neon-flicker {
+  animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary), 0 0 20px var(--primary);
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+/* Circuit diagram animation */
+.circuit-overlay {
+  animation: circuitPulse 10s infinite alternate;
+}
+
+@keyframes circuitPulse {
+  0% {
+    opacity: 0.02;
+    background-size: 400px;
+  }
+  50% {
+    opacity: 0.05;
+    background-size: 410px;
+  }
+  100% {
+    opacity: 0.02;
+    background-size: 400px;
+  }
+}
+
+/* Page load animation sequence */
+.fade-in-sequence > * {
+  opacity: 0;
+  animation: sequenceFadeIn 0.5s forwards;
+}
+
+@keyframes sequenceFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add sequential delays to children */
+.fade-in-sequence > *:nth-child(1) { animation-delay: 0.1s; }
+.fade-in-sequence > *:nth-child(2) { animation-delay: 0.2s; }
+.fade-in-sequence > *:nth-child(3) { animation-delay: 0.3s; }
+.fade-in-sequence > *:nth-child(4) { animation-delay: 0.4s; }
+.fade-in-sequence > *:nth-child(5) { animation-delay: 0.5s; }
+.fade-in-sequence > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Data loading animation */
+.loading-data {
+  position: relative;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-data::before {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 3px solid transparent;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Progress bar animation */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  background-color: var(--primary);
+  border-radius: 3px;
+  animation: progress 2s infinite;
+}
+
+@keyframes progress {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Button click effect */
+.btn:active {
+  animation: buttonPush 0.2s forwards;
+}
+
+@keyframes buttonPush {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive animations for different screen sizes */
+@media (max-width: 768px) {
+  .glitch::before,
+  .glitch::after {
+    animation-duration: 1s;
+  }
+  
+  .tracking-line {
+    animation-duration: 2s;
+  }
+}
